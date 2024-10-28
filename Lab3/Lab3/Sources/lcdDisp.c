@@ -6,8 +6,13 @@ Description: C Module that provides
              LCD. It makes use of the LCD ASM 
              Module developed in assembler.
 -------------------------------------*/
-#include "alarm.h"
+#include <mc9s12dg256.h>
+/* Notes on mc9s12dg256.h:
+   1) the type "byte" is defined as "unsigned char"
+*/
 #include "lcd_asm.h"
+
+// Prototypes of local functions
 
 /*--------------------------
 Function: initLCD
@@ -19,7 +24,7 @@ Description: Initialised the LCD hardware by
 
 void initLCD(void)
 {
-  // complete this function
+    lcd_init();
 }
 
 /*--------------------------
@@ -37,5 +42,8 @@ Description: Prints a string on the display on one of the
 ---------------------------*/
 void printLCDStr(char *str, byte lineno)
 {
-	// Complete this function
+  clear_lcd();
+  type_lcd(str);
 }
+
+
