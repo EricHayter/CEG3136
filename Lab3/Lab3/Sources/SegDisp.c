@@ -15,18 +15,36 @@ Function: initDisp
 Description: initializes hardware for the 
              7-segment displays.
 -----------------------------------------------*/
+unsigned int displays[4];
+
 void initDisp(void) 
 {
-	// Complete this function
-}
+  int i;
+//  byte DDRB @0x0003;  
+//  byte DDRP @0x025A;
+//  byte DTP @0x0258;
+//  byte DTB @0x0001;
+  DDRB = 0xFF;
+  DDRP = 0x0F;
+  PTP = 0x0F;
+  PORTB = 0x00;
 
+  for (i = 0; i < 4; i++) 
+  {
+    displays[i] = 0x00;
+  }
+
+
+}          
 /*---------------------------------------------
 Function: clearDisp
 Description: Clears all displays.
 -----------------------------------------------*/
 void clearDisp(void) 
 {
-	// Complete this function
+  int i;
+  for (i = 0; i < 4; i++)
+    displays[i] = 0x00;
 }
 
 /*---------------------------------------------
@@ -40,7 +58,40 @@ Description: Receives an ASCII character (ch)
 -----------------------------------------------*/
 void setCharDisplay(char ch, byte dispNum) 
 {
-	// Complete this function
+  if (dispNum < 0 | dispNum >= 4)
+    return;
+  switch (ch) {
+    case '0':
+      displays[dispNum] = 0x3F;
+      break;
+    case '1':
+      displays[dispNum] = 0x06;
+      break;
+    case '2':
+      displays[dispNum] = 0x5B;
+      break;
+    case '3':
+      displays[dispNum] = 0x3F;
+      break;
+    case '4':
+      displays[dispNum] = 0x4F;
+      break;
+    case '5':
+      displays[dispNum] = 0x66;
+      break;
+    case '6':
+      displays[dispNum] = 0x6D;
+      break;
+    case '7':
+      displays[dispNum] = 0x7D;
+      break;
+    case '8':
+      displays[dispNum] = 0x7F;
+      break;
+    case '9':
+      displays[dispNum] = 0x6F;
+      break;                 
+  }
 }
 
 /*---------------------------------------------
@@ -53,5 +104,9 @@ Description: Displays the codes in the code display table
 -----------------------------------------------*/
 void segDisp(void) 
 {
-	// Complete this function
+  int i;
+  for (i = 0; i < 4; i++) {
+    PTP = 0x01 << i;
+    PORTB = displays[i];
+  }
 }
