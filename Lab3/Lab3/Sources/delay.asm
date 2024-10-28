@@ -5,13 +5,13 @@
 ; Author: Gilbert Arbez
 ; Date: Fall 2010
 ;------------------------------------------------------
-NOLIST
-include "mc9s12dg256.inc" 
-LIST
+  NOLIST
+  include "mc9s12dg256.inc"
+  LIST
 
 
 ; Define External Symbols (these will be referenced by other modules)
-XDEF delayms, setDelay, polldelay
+  XDEF delayms, setDelay, polldelay
 
 
 ; Some definitions
@@ -45,7 +45,6 @@ setDelay:
    std delayCount     ; delayCount = cnt;
    rts
 
-
 ;------------------------------------------------------
 ; Subroutine: polldelay
 ; Parameters:  none
@@ -64,14 +63,14 @@ PDLY_PR_X   DS.W 1 ; preserve X
 PDLY_RA     DS.W 1 ; return address
 
 polldelay:  pshx
-   ldaa #FALSE	   ; byte retval=FALSE; // return value
+   ldaa #0	   ; byte retval=FALSE; // return value
    jsr delay1ms	   ; delay1ms();
    ldx delayCount    ; delayCount--;
    dex
    stx delayCount
 pld_if:
    bne pld_endif    ; if(delayCount==0) 
-   ldaa #TRUE        ; retval=TRUE;
+   ldaa #1        ; retval=TRUE;
 pld_endif:
    ; restore registers and stack
    pulx
