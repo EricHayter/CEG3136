@@ -23,16 +23,16 @@
 ;---------------------------------------------------------------------
 
 ; Include header files
-NOLIST
-include "mc9s12dg256.inc" 
-LIST
+  NOLIST
+  include "mc9s12dg256.inc" 
+  LIST
 **************EQUATES**********
 
 ; Define External Symbols
-XDEF initKeyPad, pollReadKey, readKey  ; Symbols to be accessed by other modules
+  XDEF initKeyPad, pollReadKey, readKey  ; Symbols to be accessed by other modules
 
 ; External Symbols Referenced
-XREF delayms  ; Symbols that this module will call from other modules
+  XREF delayms  ; Symbols that this module will call from other modules
 
 
 
@@ -120,7 +120,7 @@ pollReadKey: pshx   ; preserve register
    leas -PRK_VARSIZE,SP
    movb #NOKEY,PRK_CH,SP ; char ch = NOKEY;
    ldx #POLLCOUNT   ; int count = POLLCOUNT;
-   movb #0x0f,PORTA ; PORTA = 0x0f; //set outputs to low
+   movb #$0f, PORTA ; PORTA = 0x0f; //set outputs to low
 prk_loop:           ;           do {
 prk_if1:
    ldab PORTA        ; 3 cycles     if(PORTA != 0x0f)
@@ -269,8 +269,8 @@ TR_endif  			    ;     }
 	inca ; increment count      ;           ix++;
                                     ;     }	
 	cmpa #NUMKEYS               ;} WHILE count < NUMKEYS
-	blo TR_LOOP	
-tr_endwh ; ENDWHILE
+	blo TR_loop	
+TR_endwh ; ENDWHILE
 
 	pulb ; move ch to Acc B
 	; restore registres
