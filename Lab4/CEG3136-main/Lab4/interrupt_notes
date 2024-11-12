@@ -1,0 +1,33 @@
+siren module
+
+stuff now uses the interupts for the timer
+
+updating the keypad and segment display stuff as well as the siren
+check out the delay module to see how to design modules that use timer
+interrupts
+
+delay module now requires an initDelay call
+
+delayms works the same
+
+look back at the delay module to see how delays are implemented
+
+TIOS: Timer Input Capture/Output Compare Select
+Register
+sets bit 5 for pin 5
+
+TIE: timer interrupt enable bitmask for each pin
+
+TCTL(1/2): this configures the output acction when comparison is hit
+
+TC(0,...,7): output compare registers
+
+TSCR(1,2): timer system control registers
+
+TSCR important bits 7 and 4
+bit 7 enables the timer (can turn it off for lower power consumption)
+bit 4 timer fast flag clear all
+
+TSCR sets the prescalar
+
+42 for checklist
